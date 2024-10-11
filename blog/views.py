@@ -1,5 +1,10 @@
 from django.shortcuts import render
 from .models import Post
+from django.views.generic import ListView
+
+class PostList(ListView):
+    model = Post
+    ordering = '-pk'
 
 def index(request):
     posts = Post.objects.all().order_by('-pk')  # .order_by('-pk') : 최신 글부터 맨위 배치
