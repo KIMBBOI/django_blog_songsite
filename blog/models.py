@@ -3,6 +3,7 @@ import os
 
 class Post(models.Model):
     title = models.CharField(max_length=30)     #CharField() :  문자열 길이 최대 30으로 제한함.
+    hook_text = models.CharField(max_length=100, blank=True)
     content = models.TextField()                #TextField() : 문자열 길이 제한 안둠.
 
     head_image = models.ImageField(upload_to='blog/images/%Y/%m/%d', blank=True)
