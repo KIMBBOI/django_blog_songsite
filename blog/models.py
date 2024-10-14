@@ -5,6 +5,8 @@ class Post(models.Model):
     content = models.TextField()                #TextField() : 문자열 길이 제한 안둠.
 
     head_image = models.ImageField(upload_to='blog/images/%Y/%m/%d', blank=True)
+    file_upload = models.FileField(upload_to='blog/files/%Y/%m/%d', blank=True)
+
     created_at = models.DateTimeField(auto_now=True)
     update_at = models.DateTimeField(auto_now=True)
     #author: 추후 작성 예정                       #author 필드 : 나중에 모델에서 외래키를 구현할때 다룰것.
