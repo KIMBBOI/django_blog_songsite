@@ -1,4 +1,5 @@
 from django.db import models
+import os
 
 class Post(models.Model):
     title = models.CharField(max_length=30)     #CharField() :  문자열 길이 최대 30으로 제한함.
@@ -17,5 +18,11 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         return f'/blog/{self.pk}/'
+
+    def get_file_name(self):
+        return os.path.basename(self.file_upload.name)
+
+    def get_file_ext(self):
+        return self.get_file_name().split('.')[-1]
 
 # Create your models here.
