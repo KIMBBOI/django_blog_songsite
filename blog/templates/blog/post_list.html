@@ -77,6 +77,7 @@
         </div>
     </div>
 
+
     <div class="container my-3">
         <div class="row">
             <div class="col-md-8 col-lg-9">
@@ -85,7 +86,7 @@
                 {% for p in post_list %}
                 <!-- Blog post-->
                 <div class="card mb-4">
-                    <img class="card-img-top" src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="Card image cap" /></img>
+                    <img class="card-img-top" src="{{ p.head_image.url }}" alt="Card image cap" /></img>
                     <div class="card-body">
                         <h2 class="card-title h4">{{ p.title }}</h2>
                         <p class="card-text">{{ p.content }}</p>
