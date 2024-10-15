@@ -2,14 +2,12 @@
 {% load static %}
 <html lang="ko">
 <head>
-    <title>Blog</title>
+    <title>{% block head_title %} Blog {% endblock %}</title>
     <link rel="stylesheet" href="{% static 'blog/bootstrap/bootstrap.min.css' %}" media="screen">
 
     <script src="https://kit.fontawesome.com/4c13ecda23.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <h1>Blog</h1>
-
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
             <a class=" navbar-brand" href="./index.html">Do It Django</a>
@@ -48,40 +46,11 @@
         </div>
     </nav>
 
-    <!-- Modal -->
-    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="loginModalLabel"><i class="fa-solid fa-right-to-bracket"></i>Log In</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <button type="button" class="btn btn-outline-dark w-100 btn-sm"><i class="fa-brands fa-google"></i>Log in with Google</button>
-                            <button type="button" class="btn btn-outline-dark w-100 btn-sm"><i class="fa-regular fa-envelope"></i>Log in with E-mail</button>
-                        </div>
-                        <div class="col-md-6">
-                            <button type="button" class="btn btn-outline-dark w-100 btn-sm"><i class="fa-regular fa-envelope"></i>sign Up with E-mail</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
+    <!--  Post  -->
     <div class="container my-3">
         <div class="row">
-            <div class="col-md-8 col-lg-9">
-                {% block main-area %}
+            <div class="col-md-8 col-lg-9" id="main-area">
+                {% block main_area %}
                 {% endblock %}
             </div>
 
