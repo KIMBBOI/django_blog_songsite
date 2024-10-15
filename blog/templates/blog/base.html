@@ -8,6 +8,8 @@
     <script src="https://kit.fontawesome.com/4c13ecda23.js" crossorigin="anonymous"></script>
 </head>
 <body>
+    <h1>Blog</h1>
+
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
             <a class=" navbar-brand" href="./index.html">Do It Django</a>
@@ -46,53 +48,41 @@
         </div>
     </nav>
 
-    <!--  Post  -->
+    <!-- Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginModalLabel"><i class="fa-solid fa-right-to-bracket"></i>Log In</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-outline-dark w-100 btn-sm"><i class="fa-brands fa-google"></i>Log in with Google</button>
+                            <button type="button" class="btn btn-outline-dark w-100 btn-sm"><i class="fa-regular fa-envelope"></i>Log in with E-mail</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-outline-dark w-100 btn-sm"><i class="fa-regular fa-envelope"></i>sign Up with E-mail</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <div class="container my-3">
         <div class="row">
             <div class="col-md-8 col-lg-9">
-                <h1>Blog</h1>
-
-                {% for p in post_list %}
-                <!-- Blog post-->
-                <div class="card mb-4">
-
-                    {% if p.head_image %}
-                        <img class="card-img-top" src="https://picsum.photos/seed/{{ p.id }}800/200" alt="{{ p }} head im-age" />
-                    {% endif %}
-
-                    <div class="card-body">
-                        <!-- 포스트 제목 -->
-                        <h2 class="card-title h4">{{ p.title }}</h2>
-
-                        <!-- 포스트 요약문(미리보기) -->
-                        {% if p.hook_text %}
-                            <h5 class="text_muted">{{ p.hook_text }}</h5>
-                        {% endif %}
-
-                        <!-- 포스트 내용 & 미리보기 -->
-                        <p class="card-text">{{ p.content | truncatewords:45 }}</p>
-
-                        <!-- 상세 페이지 이동 url (더보기) -->
-                        <a href="{{ p.get_absolute_url }}" class="btn btn-primary" >Read more →</a>
-                    </div>
-
-                    <div class="card-footer text-muted">
-                        Posted on {{ p.created_at }} by
-                        <a href="#">작성자명(개발예정)</a>
-                    </div>
-                </div>
-                {% endfor %}
-
-                <!-- Pagination-->
-                <ul class="pagination justify-content-center my-4">
-                    <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">Newer</a></li>
-                    <li class="page-item active" aria-current="page"><a class="page-link" href="#!">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#!">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#!">3</a></li>
-                    <li class="page-item disabled"><a class="page-link" href="#!">...</a></li>
-                    <li class="page-item"><a class="page-link" href="#!">15</a></li>
-                    <li class="page-item"><a class="page-link" href="#!">Older</a></li>
-                </ul>
+                {% block main-area %}
+                {% endblock %}
             </div>
 
             <div class="col-md-4 col-lg-3">
