@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 import os
 
 class Post(models.Model):
@@ -11,11 +12,14 @@ class Post(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True)    #생성 시점에만 시간 저장
     update_at = models.DateTimeField(auto_now=True)         #수정 시점에 시간 업데이트
+
+
     #author: 추후 작성 예정                       #author 필드 : 나중에 모델에서 외래키를 구현할때 다룰것.
+    author = models.ForeignKey(User, on_delete=models.CASCADE)  #on_delete=models.CASCADE : '이 포스트의 작성자가 데이터베이스에서 삭제되었을 때 이 포스트도 같이 삭제한다.'
 
 
     def __str__(self):
-        return f'[{self.pk}]{self.title}'
+        return f'[{self.pk}]{self.title} :: {self.author}'
 
     # 상세 페이지로 이동하는 url
     def get_absolute_url(self):
