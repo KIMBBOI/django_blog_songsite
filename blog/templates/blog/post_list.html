@@ -5,7 +5,7 @@
     {% if post_list.exists %}
         {% for p in post_list %}
             <!-- Blog post-->
-            <div class="card mb-4">
+            <div class="card mb-4" id="post-{{ p.pk }}">
 
                 {% if p.head_image %}
                     <img class="card-img-top" src="{{ p.head_image.url }}" alt="Card image cap">
@@ -14,13 +14,19 @@
                 {% endif %}
 
                 <div class="card-body">
+                    {% if p.category %}
+                        <span class="badge badge-secondary float-right">{{ p.category }}</span>
+                    {% else %}
+                        <span class="badge badge-secondary float-right">미분류</span>
+                    {% endif %}
+
                     <!-- 포스트 제목 -->
                     <h2 class="card-title h4">{{ p.title }}</h2>
 
                     <!-- 포스트 요약문(미리보기) -->
-                    {% if p.hook_text %}
-                        <h5 class="text_muted">{{ p.hook_text }}</h5>
-                    {% endif %}
+            <!-- {% if p.hook_text %} -->
+                    <h5 class="text_muted">{{ p.hook_text }}</h5>
+            <!-- {% endif %} -->
 
                     <!-- 포스트 내용 & 미리보기 -->
                     <p class="card-text">{{ p.content | truncatewords:45 }}</p>

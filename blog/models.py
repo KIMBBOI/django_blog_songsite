@@ -2,6 +2,17 @@ from django.db import models
 from django.contrib.auth.models import User
 import os
 
+
+class Category(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+    slug = models.SlugField(max_length=200, unique=True, allow_unicode=True)    #고유 url 만들때
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name_plural = 'Categories'      #admin 페이지에서 category 이름 지정
+
 class Post(models.Model):
     title = models.CharField(max_length=30)                     #CharField() :  문자열 길이 최대 30으로 제한함.
     hook_text = models.CharField(max_length=100, blank=True)    #게시글 요약, 미리보기
@@ -18,6 +29,7 @@ class Post(models.Model):
     author = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)  #on_delete=models.CASCADE : '이 포스트의 작성자가 데이터베이스에서 삭제되었을 때 이 포스트도 같이 삭제한다.'
     #author = models.ForeignKey(User, on_delete=models.CASCADE)  #on_delete=models.CASCADE : '이 포스트의 작성자가 데이터베이스에서 삭제되었을 때 이 포스트도 같이 삭제한다.'
 
+    category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         return f'[{self.pk}]{self.title} :: {self.author}'
