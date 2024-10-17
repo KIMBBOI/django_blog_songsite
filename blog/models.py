@@ -1,5 +1,3 @@
-from enum import unique
-
 from django.db import models
 from django.contrib.auth.models import User
 import os
@@ -13,7 +11,7 @@ class Tag(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return f'/blog/category/{self.slug}/'
+        return f'/blog/tag/{self.slug}/'
 
 
 class Category(models.Model):

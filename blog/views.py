@@ -1,8 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
-from unicodedata import category
+from .models import Post, Category, Tag
 
-from .models import Post, Category
 
 class PostList(ListView):
     model = Post
@@ -43,28 +42,18 @@ def category_page(request, slug):
         }
     )
 
-# def index(request):
-#     posts = Post.objects.all().order_by('-pk')  # .order_by('-pk') : 최신 글부터 맨위 배치
-#
-#     return render(
-#         request,
-#         "blog/index.html",
-#         {
-#             "posts" : posts,
-#         }
-#     )
-#
-# def single_post_page(request, pk):
-#     post = Post.objects.get(pk=pk)
-#
-#     return render(
-#         request,
-#         "blog/single_post_page.html",
-#         {
-#             "post": post,
-#         }
-#     )
 
+def tag_page(request, slug):
+    tag = Tag.objects.get(slug=slug)
+    post_list = tag.post_set.all()
 
-# Create your views here.
-
+    return render(
+        request,
+        'blog/post_list.html',
+        {
+            'post_list': post_list,
+            'tag': tag,
+            'categories': Category.objects.all(),
+            'no_category_post_count': Post.objects.filter(category=None).count(),
+        }
+    )

@@ -76,6 +76,24 @@ class TestView(TestCase):
         self.assertIn(f'미분류 (1)', categories_card.text)
 
 
+    # 태그 페이지 테스트
+    def test_tag_page(self):
+        response = self.client.get(self.tag_hello.get_absolute_url())
+        self.assertEqual(response.status_code, 200)
+        soup = BeautifulSoup(response.content, 'html.parser')
+
+        self.navbar_test(soup)
+        self.category_card_test(soup)
+
+        self.assertIn(self.tag_hello.name, soup.h1.text)
+
+        main_area = soup.find('div', id='main-area')
+        self.assertIn(self.tag_hello.name, main_area.text)
+        self.assertIn(self.post_001.title, main_area.text)
+        self.assertNotIn(self.post_002.title, main_area.text)
+        self.assertNotIn(self.post_003.title, main_area.text)
+
+
     # 1.4 내비게이션 바가 있다.
     # 1.5. Blog , About Me 라는 문구가 내비게이션 바에 있다，
     def navbar_test(self, soup):
