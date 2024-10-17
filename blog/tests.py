@@ -34,15 +34,22 @@ class TestView(TestCase):
         )
 
     def test_category_page(self):
+
+        # 카테고리 페이지 url 오픈 확인.
         response = self.client.get(self.category_programming.get_absolute_url())
         self.assertEqual(response.status_code, 200)
 
+        # 네비게이션바 & 카테고리 카드 구성 확인.
         soup = BeautifulSoup(response.content, 'html.parser')
         self.navbar_test(soup)
         self.category_card_test(soup)
 
+        # 페이지 상단에 카테고리 뱃지 노출 확인.
+        # <h1>태그에 카테고리 이름 유무 확인.
         self.assertIn(self.category_programming.name, soup.h1.text)
 
+        # 카테고리 'programming' 유무 확인.
+        # 해당하는 포스트 노출 확인.
         main_area = soup.find('div', id='main-area')
         self.assertIn(self.category_programming.name, main_area.text)
         self.assertIn(self.post_001.title, main_area.text)
