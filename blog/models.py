@@ -1,6 +1,19 @@
+from enum import unique
+
 from django.db import models
 from django.contrib.auth.models import User
 import os
+
+
+class Tag(models.Model):
+    name = models.CharField(max_length=50)
+    slug = models.SlugField(max_length=200, unique=True, allow_unicode=True)
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return f'/blog/category/{self.slug}/'
 
 
 class Category(models.Model):
@@ -15,6 +28,7 @@ class Category(models.Model):
 
     class Meta:
         verbose_name_plural = 'Categories'      #admin 페이지에서 category 이름 지정
+
 
 class Post(models.Model):
     title = models.CharField(max_length=30)                     #CharField() :  문자열 길이 최대 30으로 제한함.
@@ -33,6 +47,8 @@ class Post(models.Model):
     #author = models.ForeignKey(User, on_delete=models.CASCADE)  #on_delete=models.CASCADE : '이 포스트의 작성자가 데이터베이스에서 삭제되었을 때 이 포스트도 같이 삭제한다.'
 
     category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.SET_NULL)
+
+    tags = models.ManyToManyField(Tag, blank=True)
 
     def __str__(self):
         return f'[{self.pk}]{self.title} :: {self.author}'

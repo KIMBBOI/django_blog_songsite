@@ -32,6 +32,16 @@
                     <!-- 포스트 내용 & 미리보기 -->
                     <p class="card-text">{{ p.content | truncatewords:45 }}</p>
 
+                    <!-- tags 필드 공란 확인 -->
+                    {% if p.tags.exists %}
+                        <i class="fas fa-tags"></i>
+                        {% for tag in p.tags.iterator %}
+                            <a href="{{ tag.get_absolute_url }}"><span class="badge badge-pill badge-light" style="color: black;">{{ tag }}</span></a>
+                        {% endfor %}
+                        <br/>
+                        <br/>
+                    {% endif %}
+
                     <!-- 상세 페이지 이동 url (더보기) -->
                     <a href="{{ p.get_absolute_url }}" class="btn btn-primary" >Read more →</a>
                 </div>
