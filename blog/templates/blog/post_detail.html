@@ -23,6 +23,12 @@
 
         <hr>
 
+        {% if user.is_authenticated and user == post.author %}
+            <a class="btn btn-dark float-right" role="button" href="/blog/update_post/{{ post.pk }}/">
+                <i class="fas fa-pen">게시글 수정</i>
+            </a>
+        {% endif %}
+
         <!-- Date/Time -->
         <p>{{ post.created_at }}</p>
 
