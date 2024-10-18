@@ -10,10 +10,11 @@ class TestView(TestCase):
 
     def setUp(self):
         self.client = Client()
-        self.user_katie = User.objects.create_user(username='katie', password='Thd73'
-                                                                              ''
-                                                                              '32.')
-        self.user_cold = User.objects.create_user(username='cold', password='Thd7332.')
+        self.user_katie = User.objects.create_user(username='katie', password='samepassword')
+        self.user_cold = User.objects.create_user(username='cold', password='samepassword')
+
+        self.user_katie.is_staff = True
+        self.user_katie.save()
 
         # 테스트 코드 - 카테고리 이름 추가 (programming, etc)
         self.category_programming = Category.objects.create(name='programming', slug='programming')
@@ -214,8 +215,13 @@ class TestView(TestCase):
         response = self.client.get('/blog/create_post/')
         self.assertNotEqual(response.status_code, 200)
 
+        # staff가 아닌 cold가 로그인을 한다.
+        self.client.login(username='cold', password='samepassword')
+        response = self.client.get('/blog/create_post/')
+        self.assertNotEqual(response.status_code, 200)
+
         # 로그인 시도
-        self.client.login(username='katie', password='Thd7332.')
+        self.client.login(username='katie', password='samepassword')
 
         response = self.client.get('/blog/create_post/')
         self.assertEqual(response.status_code, 200)
