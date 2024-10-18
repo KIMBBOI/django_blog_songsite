@@ -1,3 +1,5 @@
+from http.client import responses
+
 from django.test import TestCase, Client
 from bs4 import BeautifulSoup
 from django.contrib.auth.models import User
@@ -8,7 +10,9 @@ class TestView(TestCase):
 
     def setUp(self):
         self.client = Client()
-        self.user_katie = User.objects.create_user(username='katie', password='Thd73332.')
+        self.user_katie = User.objects.create_user(username='katie', password='Thd73'
+                                                                              ''
+                                                                              '32.')
         self.user_cold = User.objects.create_user(username='cold', password='Thd7332.')
 
         # 테스트 코드 - 카테고리 이름 추가 (programming, etc)
@@ -42,56 +46,6 @@ class TestView(TestCase):
         )
         self.post_003.tags.add(self.tag_python_kor)
         self.post_003.tags.add(self.tag_python)
-
-
-    def test_category_page(self):
-
-        # 카테고리 페이지 url 오픈 확인.
-        response = self.client.get(self.category_programming.get_absolute_url())
-        self.assertEqual(response.status_code, 200)
-
-        # 네비게이션바 & 카테고리 카드 구성 확인.
-        soup = BeautifulSoup(response.content, 'html.parser')
-        self.navbar_test(soup)
-        self.category_card_test(soup)
-
-        # 페이지 상단에 카테고리 뱃지 노출 확인.
-        # <h1>태그에 카테고리 이름 유무 확인.
-        self.assertIn(self.category_programming.name, soup.h1.text)
-
-        # 카테고리 'programming' 유무 확인.
-        # 해당하는 포스트 노출 확인.
-        main_area = soup.find('div', id='main-area')
-        self.assertIn(self.category_programming.name, main_area.text)
-        self.assertIn(self.post_001.title, main_area.text)
-        self.assertNotIn(self.post_002.title, main_area.text)
-        self.assertNotIn(self.post_003.title, main_area.text)
-
-    def category_card_test(self, soup):
-        categories_card = soup.find('div', id='categories-card')
-
-        self.assertIn('Categories', categories_card.text)
-        self.assertIn(f'{self.category_programming.name} ({self.category_programming.post_set.count()})', categories_card.text)
-        self.assertIn(f'{self.category_etc.name} ({self.category_etc.post_set.count()})', categories_card.text)
-        self.assertIn(f'미분류 (1)', categories_card.text)
-
-
-    # 태그 페이지 테스트
-    def test_tag_page(self):
-        response = self.client.get(self.tag_hello.get_absolute_url())
-        self.assertEqual(response.status_code, 200)
-        soup = BeautifulSoup(response.content, 'html.parser')
-
-        self.navbar_test(soup)
-        self.category_card_test(soup)
-
-        self.assertIn(self.tag_hello.name, soup.h1.text)
-
-        main_area = soup.find('div', id='main-area')
-        self.assertIn(self.tag_hello.name, main_area.text)
-        self.assertIn(self.post_001.title, main_area.text)
-        self.assertNotIn(self.post_002.title, main_area.text)
-        self.assertNotIn(self.post_003.title, main_area.text)
 
 
     # 1.4 내비게이션 바가 있다.
@@ -199,3 +153,97 @@ class TestView(TestCase):
         self.assertIn(self.tag_hello.name, post_area.text)
         self.assertNotIn(self.tag_python.name, post_area.text)
         self.assertNotIn(self.tag_python_kor.name, post_area.text)
+
+
+    # 카테고리 페이지 테스트
+    def test_category_page(self):
+
+        # 카테고리 페이지 url 오픈 확인.
+        response = self.client.get(self.category_programming.get_absolute_url())
+        self.assertEqual(response.status_code, 200)
+
+        # 네비게이션바 & 카테고리 카드 구성 확인.
+        soup = BeautifulSoup(response.content, 'html.parser')
+        self.navbar_test(soup)
+        self.category_card_test(soup)
+
+        # 페이지 상단에 카테고리 뱃지 노출 확인.
+        # <h1>태그에 카테고리 이름 유무 확인.
+        self.assertIn(self.category_programming.name, soup.h1.text)
+
+        # 카테고리 'programming' 유무 확인.
+        # 해당하는 포스트 노출 확인.
+        main_area = soup.find('div', id='main-area')
+        self.assertIn(self.category_programming.name, main_area.text)
+        self.assertIn(self.post_001.title, main_area.text)
+        self.assertNotIn(self.post_002.title, main_area.text)
+        self.assertNotIn(self.post_003.title, main_area.text)
+
+    # 카테고리 카드 테스트
+    def category_card_test(self, soup):
+        categories_card = soup.find('div', id='categories-card')
+
+        self.assertIn('Categories', categories_card.text)
+        self.assertIn(f'{self.category_programming.name} ({self.category_programming.post_set.count()})', categories_card.text)
+        self.assertIn(f'{self.category_etc.name} ({self.category_etc.post_set.count()})', categories_card.text)
+        self.assertIn(f'미분류 (1)', categories_card.text)
+
+
+    # 태그 페이지 테스트
+    def test_tag_page(self):
+        response = self.client.get(self.tag_hello.get_absolute_url())
+        self.assertEqual(response.status_code, 200)
+        soup = BeautifulSoup(response.content, 'html.parser')
+
+        self.navbar_test(soup)
+        self.category_card_test(soup)
+
+        self.assertIn(self.tag_hello.name, soup.h1.text)
+
+        main_area = soup.find('div', id='main-area')
+        self.assertIn(self.tag_hello.name, main_area.text)
+        self.assertIn(self.post_001.title, main_area.text)
+        self.assertNotIn(self.post_002.title, main_area.text)
+        self.assertNotIn(self.post_003.title, main_area.text)
+
+
+    # (폼태그) 포스트 작성 페이지 테스트
+    def test_create_post(self):
+
+        # 로그인 하지 않으면 status code가 200이면 안됨.
+        response = self.client.get('/blog/create_post/')
+        self.assertNotEqual(response.status_code, 200)
+
+        # 로그인 시도
+        self.client.login(username='katie', password='Thd7332.')
+
+        response = self.client.get('/blog/create_post/')
+        self.assertEqual(response.status_code, 200)
+        soup = BeautifulSoup(response.content, 'html.parser')
+
+        self.assertEqual('Create Post - Blog', soup.title.text)
+        main_area = soup.find('div', id='main-area')
+        self.assertIn('새 게시글 작성', main_area.text)
+
+        self.client.post(
+            '/blog/create_post/',
+            {
+                'title': 'Post Form 만들기',
+                'content': "Post Form 페이지를 만듭시다.",
+            }
+        )
+        self.assertEqual(Post.objects.count(), 4)
+        last_post = Post.objects.last()
+        self.assertEqual(last_post.title, "Post Form 만들기")
+        self.assertEqual(last_post.author.username, 'katie')
+
+
+
+
+
+
+
+
+
+
+

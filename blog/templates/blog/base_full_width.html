@@ -1,0 +1,28 @@
+<!doctype html>
+{% load static %}
+<html lang="ko">
+
+<head>
+    <title>{% block head_title %} Blog {% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'blog/bootstrap/bootstrap.min.css' %}" media="screen">
+
+    <script src="https://kit.fontawesome.com/4c13ecda23.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+    {% include 'blog/navbar.html' %}
+
+    <div class="container mt-3">
+        <div class="row">
+            <!-- 메인 영역 12칸 지정 -->
+            <div class="col-12" id="main-area">
+            {% block main_area %}
+            {% endblock %}
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>
