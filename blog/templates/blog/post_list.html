@@ -41,7 +41,6 @@
     </div>
 
 
-
     {% if post_list.exists %}
         {% for p in post_list %}
             <!-- Blog post-->
@@ -69,7 +68,7 @@
             <!-- {% endif %} -->
 
                     <!-- 포스트 내용 & 미리보기 -->
-                    <p class="card-text">{{ p.content | truncatewords:45 }}</p>
+                    <p class="card-text">{{ p.get_content_markdown | truncatewords_html:45 | safe }}</p>
 
                     <!-- tags 필드 공란 확인 -->
                     {% if p.tags.exists %}

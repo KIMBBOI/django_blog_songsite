@@ -45,6 +45,7 @@
 
         <!-- Post Content -->
         <p>{{ post.content }}</p>
+        <p>{{ post.get_content_markdown | safe }}</p>
 
         <!-- 태그 유무 확인 후 뱃지 표시 -->
         {% if post.tags.exists %}

@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from markdownx.models import MarkdownxField
+from markdownx.utils import markdown
 import os
 
 
@@ -31,7 +33,7 @@ class Category(models.Model):
 class Post(models.Model):
     title = models.CharField(max_length=30)                     #CharField() :  문자열 길이 최대 30으로 제한함.
     hook_text = models.CharField(max_length=100, blank=True)    #게시글 요약, 미리보기
-    content = models.TextField()                                #TextField() : 문자열 길이 제한 안둠.
+    content = MarkdownxField()                                #TextField() : 문자열 길이 제한 안둠.
 
     head_image = models.ImageField(upload_to='blog/images/%Y/%m/%d', blank=True)
     file_upload = models.FileField(upload_to='blog/files/%Y/%m/%d', blank=True)
@@ -62,5 +64,8 @@ class Post(models.Model):
     # 파일 확장자 추출
     def get_file_ext(self):
         return self.get_file_name().split('.')[-1]
+
+    def get_content_markdown(self):
+        return markdown(self.content)
 
 # Create your models here.

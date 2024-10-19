@@ -1,13 +1,9 @@
-from http.client import responses
-from lib2to3.fixes.fix_input import context
-
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .models import Post, Category, Tag
 from django.core.exceptions import PermissionDenied
 from django.utils.text import slugify
-
 
 class PostList(ListView):
     model = Post
@@ -68,7 +64,7 @@ class PostCreate(LoginRequiredMixin, UserPassesTestMixin, CreateView):
 # 게시글 수정하기
 class PostUpdate(LoginRequiredMixin, UpdateView):
     model = Post
-    fields = ['title', 'hook_text', 'content', 'head_image', 'file_upload', 'category', 'tags']
+    fields = ['title', 'hook_text', 'content', 'head_image', 'file_upload', 'category']
 
     template_name = 'blog/post_update_form.html'
 
@@ -100,7 +96,7 @@ class PostUpdate(LoginRequiredMixin, UpdateView):
                     tag.save()
                 self.object.tags.add(tag)
 
-            return(response)
+        return response
 
 
     # 게시글 작성자만 수정할 수 있게. - dispatch()로 요청 방식 판단 (GET 방식인 지, POST 방식인 지)
