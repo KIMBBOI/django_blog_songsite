@@ -111,7 +111,7 @@
                         <!-- Single comment-->
                         <div class="media mb-4 p-3 border rounded" id="comment-{{ comment.pk }}">
                             <div class="d-flex">
-                                <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
+                                <div class="flex-shrink-0"><img class="rounded-circle" src="{{ comment.get_avatar_url }}" alt="{{ comment.author }}" width="60px" /></div>
                                 <div class="media-body ms-3">
 
                                     <!-- 버튼 추가 & 댓글 작성자에게만 보이기 -->
