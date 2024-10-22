@@ -26,7 +26,7 @@
         <hr>
 
         {% if user.is_authenticated and user == post.author %}
-            <a class="btn btn-dark float-right" role="button" href="/blog/update_post/{{ post.pk }}/">
+            <a class="btn btn-dark float-end" role="button" href="/blog/update_post/{{ post.pk }}/">
                 <i class="fas fa-pen">게시글 수정</i>
             </a>
         {% endif %}
@@ -97,7 +97,7 @@
 <!--                                    <textarea class="form-control" rows="3"></textarea>-->
                                     {{ comment_form | crispy }}
                                 </div>
-                                <button type="submit" class="btn btn-primary">등록</button>
+                                <button type="submit" class="btn btn-primary float-end">등록</button>
                             </form>
                             {% else %}
                                 <a role="button" class="btn btn-online-dark btn-sm" href="#" data-bs-toggle="modal" data-target="#loginModal">Log in and leave a comment</a>
@@ -105,18 +105,35 @@
                         </div>
                     </div>
 
+
                     {% if post.comment_set.exists %}
                         {% for comment in post.comment_set.iterator %}
                         <!-- Single comment-->
-                        <div class="media mb-4" id="comment-{{ comment.pk }}">
+                        <div class="media mb-4 p-3 border rounded" id="comment-{{ comment.pk }}">
                             <div class="d-flex">
                                 <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
                                 <div class="media-body ms-3">
-                                    <h5 class="mt-0">
+                                    <!-- 버튼 추가 & 댓글 작성자에게만 보이기 -->
+                                    {% if user.is_authenticated and comment.author == user %}
+                                        <a role="button"
+                                           class="btn btn-sm btn-info float-end mb-2"
+                                           id="comment-{{ comment.ok }}-update-btn"
+                                           href="/blog/update_comment/{{ comment.pk }}/">
+                                            수정
+                                        </a>
+                                    {% endif %}
+                                    <h5 class="mt-0 mb-1">
                                         {{ comment.author.username }} &nbsp;&nbsp;
                                         <small class="text-muted">{{ comment.created_at }}</small>
                                     </h5>
-                                    <p>{{ comment.content | linebreaks }}</p>
+                                    <p class="mb-2">{{ comment.content | linebreaks }}</p>
+                                    {% if comment.created_at != comment.modified_at %}
+                                        <p class="text-muted mb-0">
+                                            <small>
+                                                수정됨 : {{ comment.modified_at }}
+                                            </small>
+                                        </p>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
