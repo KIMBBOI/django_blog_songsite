@@ -1,18 +1,66 @@
 <!doctype html>
+{% load static %}
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
-    <title>김송희입니다 !</title>
+    <title>Song's Website</title>
+
+    <link rel="stylesheet" href="{% static 'blog/bootstrap/bootstrap.min.css' %}" media="screen">
+    <link rel="stylesheet" href="{% static 'single_pages/css/landing.css' %}" media="screen">
+
+    <script src="https://kit.fontawesome.com/4c13ecda23.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <nav>
-        <a href="/blog/">Blog</a>
-        <a href="/about_me/">About me</a>
-    </nav>
+
+    {% include 'blog/navbar.html' %}
+
+    <section>
+        <div class="container">
+            <div class="row justify-content-between">
+                <div class="col-lg-6 text-light">
+                    <h1 class="mt-5"> Song's Website </h1>
+                    <p>파이썬, django 웹프레임워크를 이용하여 나만의 블로그 사이트 만들기.</p>
+                </div>
+                <div class="col-lg-5 mt-5">
+                    <h2 class="text-light">Blog - 최신 게시글</h2>
+
+                    {% for post in recent_posts %}
+                        <div class="card mt-1">
+                            <div class="card-body">
+                                <h6>
+                                    <a href="{{ post.get_absolute_url }}" class="text-decoration-none text-dark">
+                                        {{ post.title }}
+                                    </a>
+                                </h6>
+                                <span class="badge badge-pill badge-light float-end" style="color: black;">
+                                    <img class="mr-1 rounded-circle" width="22px" src="{{ post.get_avatar_url }}" alt="{{ post.author }}">
+                                    {{ post.author.username }}
+                                    &nbsp;
+                                    &nbsp;
+                                    {{ post.created_at }}
+                                </span>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+    </section>
 
     <h1>안녕하세요. 김송희입니다.</h1>
     <h2>대문페이지</h2>
     <h3>공사중 ..</h3>
+
+    <div class="fixed-bottom">
+        {% include 'blog/footer.html' %}
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
+
 
 </body>
 </html>

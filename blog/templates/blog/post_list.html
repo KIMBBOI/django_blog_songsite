@@ -34,7 +34,7 @@
 
         {% if user.is_authenticated %}
             {% if user.is_superuser or user.is_staff %}
-                <a href="/blog/create_post/" role="button" class="btn btn-dark">
+                <a href="/blog/create_post/" role="button" class="btn btn-light">
                     <i class="fas fa-pen"></i>&nbsp;작성하기
                 </a>
             {% endif %}
@@ -55,9 +55,9 @@
 
                 <div class="card-body">
                     {% if p.category %}
-                        <span class="badge badge-secondary float-right">{{ p.category }}</span>
+                        <span class="badge badge-secondary float-end">{{ p.category }}</span>
                     {% else %}
-                        <span class="badge badge-secondary float-right">미분류</span>
+                        <span class="badge badge-secondary float-end">미분류</span>
                     {% endif %}
 
                     <!-- 포스트 제목 -->
@@ -82,7 +82,7 @@
                     {% endif %}
 
                     <!-- 상세 페이지 이동 url (더보기) -->
-                    <a href="{{ p.get_absolute_url }}" class="btn btn-primary" >Read more →</a>
+                    <a href="{{ p.get_absolute_url }}" class="btn btn-outline-primary mt-2" onmouseover="this.style.color='white';" onmouseout="this.style.color='blue';" ">Read More →</a>
                 </div>
 
                 <div class="card-footer text-muted">
