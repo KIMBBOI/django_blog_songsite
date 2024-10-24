@@ -2,26 +2,10 @@
 
 {% block main_area %}
 
-<!--        {% if user.is_authenticated %}-->
-<!--            {% if user.is_superuser or user.is_staff %}-->
-<!--                <a href="/blog/create_post/" role="button" class="btn btn-primary disabled">-->
-<!--                    <i class="fas fa-pen"></i>&nbsp;작성하기-->
-<!--                </a>-->
-<!--            {% endif %}-->
-<!--        {% endif %}-->
 
-<!--        <h1>Blog-->
-<!--            {% if category %}-->
-<!--                <span class="badge text-bg-dark">{{ category }}</span>-->
-<!--            {% endif %}-->
-
-<!--            {% if tag %}-->
-<!--                <span class="badge text-bg-dark" style="color: black;"><i class="fas fa-tags"></i>{{ tag }} ({{ tag.post_set.count }})</span>-->
-<!--            {% endif %}-->
-<!--        </h1>-->
-
-    <div class="d-flex justify-content-between align-items-center">
-        <h1>Blog
+    <div class="d-flex flex-column align-items-center">
+        <div class="d-flex justify-content-between align-items-center m-3" style="width: 780px;">
+        <h1 class="me-4">Blog
             {% if search_info %} <small class="text-muted"> {{ search_info }} </small> {% endif %}
             {% if category %}
                 <span class="badge text-bg-dark">{{ category }}</span>
@@ -31,70 +15,70 @@
                 <span class="badge text-bg-dark" style="color: black;"><i class="fas fa-tags"></i>{{ tag }} ({{ tag.post_set.count }})</span>
             {% endif %}
         </h1>
-
         {% if user.is_authenticated %}
             {% if user.is_superuser or user.is_staff %}
-                <a href="/blog/create_post/" role="button" class="btn btn-light">
+                <a href="/blog/create_post/" role="button" class="btn btn-light float-end">
                     <i class="fas fa-pen"></i>&nbsp;작성하기
                 </a>
             {% endif %}
         {% endif %}
-    </div>
+        </div>
 
+        {% if post_list.exists %}
+            {% for p in post_list %}
+                <!-- Blog post-->
+                <div class="card mb-4" id="post-{{ p.pk }}" style="width: 800px; height: auto;">
 
-    {% if post_list.exists %}
-        {% for p in post_list %}
-            <!-- Blog post-->
-            <div class="card mb-4" id="post-{{ p.pk }}">
-
-                {% if p.head_image %}
-                    <img class="card-img-top" src="{{ p.head_image.url }}" alt="Card image cap">
-                {% else %}
-                    <img class="card-img-top" src="https://picsum.photos/seed/{{ p.id }}800/200" alt="random_image" />
-                {% endif %}
-
-                <div class="card-body">
-                    {% if p.category %}
-                        <span class="badge badge-secondary float-end">{{ p.category }}</span>
+                    {% if p.head_image %}
+                        <img class="card-img-top" style="width:100%; height: 700px; object-fit: cover;" src="{{ p.head_image.url }}" alt="Card image cap">
                     {% else %}
-                        <span class="badge badge-secondary float-end">미분류</span>
+                        <img class="card-img-top"  style="width:100%; height: auto;" src="https://picsum.photos/seed/{{ p.id }}800/200" alt="random_image" />
                     {% endif %}
 
-                    <!-- 포스트 제목 -->
-                    <h2 class="card-title h4">{{ p.title }}</h2>
+                    <div class="card-body">
+                        {% if p.category %}
+                            <span class="badge badge-secondary float-end">{{ p.category }}</span>
+                        {% else %}
+                            <span class="badge badge-secondary float-end">미분류</span>
+                        {% endif %}
 
-                    <!-- 포스트 요약문(미리보기) -->
-            <!-- {% if p.hook_text %} -->
-                    <h5 class="text_muted">{{ p.hook_text }}</h5>
-            <!-- {% endif %} -->
+                        <!-- 포스트 제목 -->
+                        <h2 class="card-title h4">{{ p.title }}</h2>
 
-                    <!-- 포스트 내용 & 미리보기 -->
-                    <p class="card-text">{{ p.get_content_markdown | truncatewords_html:45 | safe }}</p>
+                        <!-- 포스트 요약문(미리보기) -->
+                <!-- {% if p.hook_text %} -->
+                        <h5 class="text_muted">{{ p.hook_text }}</h5>
+                <!-- {% endif %} -->
 
-                    <!-- tags 필드 공란 확인 -->
-                    {% if p.tags.exists %}
-                        <i class="fa-solid fa-tags"></i>
-                        {% for tag in p.tags.iterator %}
-                            <a href="{{ tag.get_absolute_url }}"><span class="badge badge-pill badge-light" style="color: black;">{{ tag }}</span></a>
-                        {% endfor %}
-                        <br/>
-                        <br/>
-                    {% endif %}
+                        <!-- 포스트 내용 & 미리보기 -->
+                        <p class="card-text">{{ p.get_content_markdown | truncatewords_html:45 | safe }}</p>
 
-                    <!-- 상세 페이지 이동 url (더보기) -->
-                    <a href="{{ p.get_absolute_url }}" class="btn btn-outline-primary mt-2" onmouseover="this.style.color='white';" onmouseout="this.style.color='blue';" ">Read More →</a>
+                        <!-- tags 필드 공란 확인 -->
+                        {% if p.tags.exists %}
+                            <i class="fa-solid fa-tags"></i>
+                            {% for tag in p.tags.iterator %}
+                                <a href="{{ tag.get_absolute_url }}"><span class="badge badge-pill badge-light" style="color: black;">{{ tag }}</span></a>
+                            {% endfor %}
+                            <br/>
+                            <br/>
+                        {% endif %}
+
+                        <!-- 상세 페이지 이동 url (더보기) -->
+                        <a href="{{ p.get_absolute_url }}" class="btn btn-outline-primary mt-2" onmouseover="this.style.color='white';" onmouseout="this.style.color='blue';">Read More →</a>
+                    </div>
+
+                    <div class="card-footer text-muted">
+                        Posted on {{ p.created_at }} by
+                        <a href="#">{{ p.author | upper }}</a>
+                    </div>
                 </div>
+        &nbsp;
+        &nbsp;
+                {% endfor %}
 
-                <div class="card-footer text-muted">
-                    Posted on {{ p.created_at }} by
-                    <a href="#">{{ p.author | upper }}</a>
-                </div>
-            </div>
-            {% endfor %}
-
-    {% else %}
-        <h3>아직 게시물이 없습니다.</h3>
-    {% endif %}
+        {% else %}
+            <h3>아직 게시물이 없습니다.</h3>
+        {% endif %}
 
         <!-- 페이징 처리 -->
         {% if is_paginated %}
@@ -121,6 +105,9 @@
             {% endif %}
         </ul>
         {% endif %}
+    </div>
+
+
 {% endblock %}
 
 

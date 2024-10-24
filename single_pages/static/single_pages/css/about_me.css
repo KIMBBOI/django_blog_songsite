@@ -2,6 +2,23 @@
     margin-bottom: 130px;
 }
 
-.img-fluid {
+.small_title {
+    font-size: 14px !important;
+}
+
+.small_content {
+    font-size: 14px !important;
+}
+
+.card-title {
+    font-size: 16px !important;
+    font-weight: bold;
+}
+
+.post-content{
+    font-size: 13.8px !important;
+}
+
+.col-lg-7 {
 
 }

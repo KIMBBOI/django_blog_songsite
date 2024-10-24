@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Song's Website</title>
+    <title>{{ user.username }} Website</title>
 
     <link rel="stylesheet" href="{% static 'blog/bootstrap/bootstrap.min.css' %}" media="screen">
     <link rel="stylesheet" href="{% static 'single_pages/css/landing.css' %}" media="screen">
@@ -19,21 +19,21 @@
         <div class="container">
             <div class="row justify-content-between">
                 <div class="col-lg-6 text-light">
-                    <h1 class="mt-5"> Song's Website </h1>
-                    <p>파이썬, django 웹프레임워크를 이용하여 나만의 블로그 사이트 만들기.</p>
+                    <h2 class="mt-5"> {{ user.username }}'s Website </h2>
+                    <p class="small-text">파이썬, django 웹프레임워크를 이용한 나만의 블로그 사이트입니다 .*</p>
                 </div>
                 <div class="col-lg-5 mt-5">
-                    <h2 class="text-light">Blog - 최신 게시글</h2>
+                    <h5 class="text-light">Blog - 최신 게시글</h5>
 
                     {% for post in recent_posts %}
                         <div class="card mt-1">
                             <div class="card-body">
                                 <h6>
-                                    <a href="{{ post.get_absolute_url }}" class="text-decoration-none text-dark">
+                                    <a href="{{ post.get_absolute_url }}" class="text-decoration-none text-dark" style="font-size: 13.3px;">
                                         {{ post.title }}
                                     </a>
                                 </h6>
-                                <span class="badge badge-pill badge-light float-end" style="color: black;">
+                                <span class="badge badge-pill badge-light float-end" style="color: black; font-size: 11px;">
                                     <img class="mr-1 rounded-circle" width="22px" src="{{ post.get_avatar_url }}" alt="{{ post.author }}">
                                     {{ post.author.username }}
                                     &nbsp;
