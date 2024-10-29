@@ -1,7 +1,8 @@
 import os
 from pathlib import Path
 
-from django.conf.global_settings import MEDIA_URL, MEDIA_ROOT, AUTHENTICATION_BACKENDS, LOGIN_REDIRECT_URL
+from django.conf.global_settings import MEDIA_URL, MEDIA_ROOT, AUTHENTICATION_BACKENDS, LOGIN_REDIRECT_URL, \
+    ALLOWED_HOSTS
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -11,10 +12,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-)o)+jouwv4$8c2eu9q7vi%_j!+kc9lbaniwl129m*3qg!q04ym"
+SECRET_KEY = os.environ.get('SECRET_KEY', "django-insecure-)o)+jouwv4$8c2eu9q7vi%_j!+kc9lbaniwl129m*3qg!q04ym")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = int(os.environ.get('DEBUG', 1))
+
+if os.environ.get('DJANGO_ALLOWED_HOSTS'):
+    ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS').split(' ')
+else:
+    ALLOWED_HOSTS = []
 
 ALLOWED_HOSTS = []
 

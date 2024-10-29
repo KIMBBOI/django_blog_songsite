@@ -2,13 +2,12 @@
 
 {% block main_area %}
 
-
     <div class="d-flex flex-column align-items-center">
         <div class="d-flex justify-content-between align-items-center m-3" style="width: 780px;">
         <h1 class="me-4">Blog
             {% if search_info %} <small class="text-muted"> {{ search_info }} </small> {% endif %}
             {% if category %}
-                <span class="badge text-bg-dark">{{ category }}</span>
+                <span class="badge rounded-pill bg-info text-light" style="width: auto !important; height: 30px !important; font-size: 15px; text-align: center !important;">{{ category }}</span>
             {% endif %}
 
             {% if tag %}
@@ -27,12 +26,12 @@
         {% if post_list.exists %}
             {% for p in post_list %}
                 <!-- Blog post-->
-                <div class="card mb-4" id="post-{{ p.pk }}" style="width: 800px; height: auto;">
+                <div class="card mb-4" id="post-{{ p.pk }}" style="width: 740px; height: auto;">
 
                     {% if p.head_image %}
-                        <img class="card-img-top" style="width:100%; height: 700px; object-fit: cover;" src="{{ p.head_image.url }}" alt="Card image cap">
+                        <img class="card-img-top" style="width:100%; height: auto; object-fit: cover;" src="{{ p.head_image.url }}" alt="Card image cap">
                     {% else %}
-                        <img class="card-img-top"  style="width:100%; height: auto;" src="https://picsum.photos/seed/{{ p.id }}800/200" alt="random_image" />
+                        <img class="card-img-top"  style="width:100%; height: 600px;" src="https://picsum.photos/seed/{{ p.id }}800/200" alt="random_image" />
                     {% endif %}
 
                     <div class="card-body">
@@ -44,6 +43,7 @@
 
                         <!-- 포스트 제목 -->
                         <h2 class="card-title h4">{{ p.title }}</h2>
+                        <br/>
 
                         <!-- 포스트 요약문(미리보기) -->
                 <!-- {% if p.hook_text %} -->

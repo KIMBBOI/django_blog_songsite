@@ -5,6 +5,7 @@ from markdownx.utils import markdown
 import os
 
 
+# Tag 모델: 게시글에 부여할 태그를 위한 모델
 class Tag(models.Model):
     name = models.CharField(max_length=50)
     slug = models.SlugField(max_length=200, unique=True, allow_unicode=True)
@@ -16,6 +17,7 @@ class Tag(models.Model):
         return f'/blog/tag/{self.slug}/'
 
 
+# Category 모델: 게시글의 카테고리를 위한 모델
 class Category(models.Model):
     name = models.CharField(max_length=50, unique=True)
     slug = models.SlugField(max_length=200, unique=True, allow_unicode=True)    #고유 url 만들때
@@ -26,10 +28,11 @@ class Category(models.Model):
     def get_absolute_url(self):
         return f'/blog/category/{self.slug}/'
 
-    class Meta:
-        verbose_name_plural = 'Categories'      #admin 페이지에서 category 이름 지정
+    class Meta:# Admin 페이지에서 표시할 때 'Categories'로 표시하도록 설정
+        verbose_name_plural = 'Categories'
 
 
+# Post 모델: 블로그 게시글을 위한 모델
 class Post(models.Model):
     title = models.CharField(max_length=30)                     #CharField() :  문자열 길이 최대 30으로 제한함.
     hook_text = models.CharField(max_length=100, blank=True)    #게시글 요약, 미리보기
@@ -38,16 +41,19 @@ class Post(models.Model):
     head_image = models.ImageField(upload_to='blog/images/%Y/%m/%d', blank=True)
     file_upload = models.FileField(upload_to='blog/files/%Y/%m/%d', blank=True)
 
+    # 게시글 생성 시간 (자동 생성)
     created_at = models.DateTimeField(auto_now_add=True)    #생성 시점에만 시간 저장
+    # 게시글 수정 시간 (자동 업데이트)
     update_at = models.DateTimeField(auto_now=True)         #수정 시점에 시간 업데이트
 
 
-    #author: 추후 작성 예정                       #author 필드 : 나중에 모델에서 외래키를 구현할때 다룰것.
-    author = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)  #on_delete=models.CASCADE : '이 포스트의 작성자가 데이터베이스에서 삭제되었을 때 이 포스트도 같이 삭제한다.'
-    #author = models.ForeignKey(User, on_delete=models.CASCADE)  #on_delete=models.CASCADE : '이 포스트의 작성자가 데이터베이스에서 삭제되었을 때 이 포스트도 같이 삭제한다.'
+    # 작성자 필드: User 모델과 외래키 관계 (작성자가 삭제될 경우, 게시글은 NULL로 설정)
+    author = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
 
+    # 카테고리 필드: Category 모델과 외래키 관계, NULL 허용, 비워둘 수 있음
     category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.SET_NULL)
 
+    # 태그 필드: Tag 모델과 다대다 관계, 태그는 여러 개 설정 가능
     tags = models.ManyToManyField(Tag, blank=True)
 
     def __str__(self):
@@ -69,12 +75,15 @@ class Post(models.Model):
         return markdown(self.content)
 
     def get_avatar_url(self):
+        # 작성자가 소셜 계정을 가지고 있는 경우, 아바타 URL 반환
         if self.author.socialaccount_set.exists():
             return self.author.socialaccount_set.first().get_avatar_url()
+        # 그렇지 않은 경우 기본 아바타 URL 반환
         else:
             return f'https://doitdjango.com/avatar/id/2509/c94d6520730cd566/svg/{self.author.email}'
 
 
+# Comment 모델: 게시글에 달린 댓글을 위한 모델
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     author = models.ForeignKey(User, on_delete=models.CASCADE)

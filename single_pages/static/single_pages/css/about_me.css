@@ -19,6 +19,16 @@
     font-size: 13.8px !important;
 }
 
-.col-lg-7 {
+.col-lg-5 p{
+    font-size: 15px !important;
+}
 
+.img-fluid {
+    width: 800px;
+    height: 280px;
+}
+
+.card-img-top {
+    width: 500px;
+    height:400px;
 }

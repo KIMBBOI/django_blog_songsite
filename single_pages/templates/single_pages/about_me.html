@@ -38,7 +38,7 @@
                         <li class="small_title">학력</li>
                         <ul class="small_content">
                             <li>영신여자고등학교, 자연계열 (2016.03 ~ 2019.02)</li>
-                            <li>남서울대학교, 빅데이터경영공학부 (2019.03 ~ 2024.02)</li>
+                            <li>***대학교, 빅데이터경영공학부 (2019.03 ~ 2024.02)</li>
                         </ul>
                         <br/>
 
@@ -53,26 +53,27 @@
                 </div>
 
                 <div class="col-lg-4">
-                    <img class="img-fluid" width="300px" src="{% static 'single_pages/images/me.png' %}">
+                    <img width="300px" src="{% static 'single_pages/images/me.png' %}">
                 </div>
             </div>
         </div>
         <br/>
     </section>
 
-
+<!-- d-flex flex-column align-items-center -->
     <section class="bg-light margin-for-footer">
         <div class="container">
             <br/>
             <div class="row">
                 <div class="col-12">
                     <h1>Portfolio</h1>
+                    <br/>
                 </div>
             </div>
-            <div class="row">
+            <div class="row g-5 justify-content-center">
                 <div class="col-lg-4 d-flex align-items-stretch">
-                    <div class="card" style="width: 300px;" data-bs-toggle="modal" data-bs-target="#pycon2024">
-                        <img class="card-img-top" src="{% static 'single_pages/images/개발자.jpg' %}">
+                    <div class="card" style="width: 360px; height: 390px;" data-bs-toggle="modal" data-bs-target="#click1">
+                        <img class="card-img-top" style="width: auto; height: 180px;" src="{% static 'single_pages/images/나만의블로그웹사이트.png' %}">
                         <div class="card-body">
                             <h5 class="card-title">나만의 블로그 만들기 프로젝트</h5>
                             <hr/>
@@ -83,8 +84,8 @@
                 </div>
 
                 <div class="col-lg-4 d-flex align-items-stretch">
-                    <div class="card" style="width: 300px;" data-bs-toggle="modal" data-bs-target="#inflearn_django2">
-                        <img class="card-img-top" src="{% static 'single_pages/images/파이썬.jpg' %}">
+                    <div class="card" style="width: 360px; height: 390px;" data-bs-toggle="modal" data-bs-target="#click2">
+                        <img class="card-img-top" style="width: auto; height: 180px;" src="{% static 'single_pages/images/강아지를부탁해.png' %}">
                         <div class="card-body">
                             <h5 class="card-title">유기견 임시 보호 센터 입양 플랫폼 프로젝트</h5>
                             <hr/>
@@ -95,8 +96,8 @@
                 </div>
 
                 <div class="col-lg-4 d-flex align-items-stretch">
-                    <div class="card" style="width: 300px;" data-bs-toggle="modal" data-bs-target="#automation_python">
-                        <img class="card-img-top" src="{% static 'single_pages/images/개발자2.jpg' %}">
+                    <div class="card" style="width: 360px; height: 390px;" data-bs-toggle="modal" data-bs-target="#click3">
+                        <img class="card-img-top" style="width: auto; height: 180px;" src="{% static 'single_pages/images/1.png' %}">
                         <div class="card-body">
                             <h5 class="card-title">재개봉 영화 예매 사이트 프로젝트</h5>
                             <hr/>
@@ -119,11 +120,11 @@
 
 
     <!-- Modal -->
-    <div class="modal" id="pycon2024" tabindex="-1" role="dialog" aria-labelledby="pycon2024ModalLabel" aria-hidden="true">
+    <div class="modal" id="click1" tabindex="-1" role="dialog" aria-labelledby="click1ModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="pycon2024ModalLabel">나만의 블로그 만들기 프로젝트</h5>
+                    <h5 class="modal-title" id="click1ModalLabel">나만의 블로그 만들기 프로젝트</h5>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
@@ -131,11 +132,11 @@
                 <div class="modal-body d-flex justify-content-center align-items-center">
                     <div class="row">
                         <div class="col-lg-7 d-flex justify-content-center align-items-center">
-                            <img class="img-fluid" src="{% static 'single_pages/images/개발자.jpg' %}">
+                            <img class="img-fluid" src="{% static 'single_pages/images/나만의블로그웹사이트.png' %}">
                         </div>
                         <div class="col-lg-5">
                             <p>Django + Bootstrap 활용한 Python 웹 프로그래밍 프로젝트입니다.</p>
-                            <a href="https://github.com/KIMBBOI/django_blog_songsite" class="btn btn-outline-primary" target="_blank">사이트로 이동</a>
+                            <a href="https://github.com/KIMBBOI/django_blog_songsite" class="btn btn-outline-primary" target="_blank">Go To Link</a>
                         </div>
                     </div>
                 </div>
@@ -148,11 +149,11 @@
 
 
     <!-- Modal -->
-    <div class="modal" id="inflearn_django2" tabindex="-1" role="dialog" area-labelleby="inflearnDjango2ModalLabel" aria-hidden="true">
+    <div class="modal" id="click2" tabindex="-1" role="dialog" area-labelleby="click2ModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="inflearnDjango2ModalLabel">유기견 임시 보호 센터 입양 플랫폼 프로젝트</h5>
+                    <h5 class="modal-title" id="click2ModalLabel">유기견 임시 보호 센터 입양 플랫폼 프로젝트</h5>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
@@ -160,11 +161,11 @@
                 <div class="modal-body d-flex justify-content-center align-items-center">
                     <div class="row">
                         <div class="col-lg-7 d-flex justify-content-center align-items-center">
-                            <img class="img-fluid" src="{% static 'single_pages/images/파이썬.jpg' %}">
+                            <img class="img-fluid" src="{% static 'single_pages/images/강아지를부탁해.png' %}">
                         </div>
                         <div class="col-lg-5">
                             <p>동물보호소의 유기견을 재입양할 수 있는 유기견 입양 플랫폼을 구축하였습니다.</p>
-                            <a href="https://github.com/KIMBBOI/PuppyPlease" class="btn btn-outline-primary" target="_blank">사이트로 이동</a>
+                            <a href="https://github.com/KIMBBOI/PuppyPlease" class="btn btn-outline-primary" target="_blank">Go To Link</a>
                         </div>
                     </div>
                   </div>
@@ -176,11 +177,11 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal" id="automation_python" tabindex="-1" role="dialog" aria-labelledby="pythoAutomationModalLabel" aria-hidden="true">
+    <div class="modal" id="click3" tabindex="-1" role="dialog" aria-labelledby="click3ModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="pythoAutomationModalLabel">재개봉 영화 예매 사이트 프로젝트</h5>
+                    <h5 class="modal-title" id="click3ModalLabel">재개봉 영화 예매 사이트 프로젝트</h5>
                     <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
@@ -188,11 +189,11 @@
                 <div class="modal-body d-flex justify-content-center align-items-center">
                     <div class="row">
                         <div class="col-lg-7 d-flex justify-content-center align-items-center">
-                            <img class="img-fluid" src="{% static 'single_pages/images/개발자2.jpg' %}">
+                            <img class="img-fluid" src="{% static 'single_pages/images/1.png' %}">
                         </div>
                         <div class="col-lg-5">
                             <p>2000년대 이후의 '스테디셀러'들을 다시 만나볼 수 있는 기회를 제공하기 위해 개발한 영화 예매 사이트 프로젝트입니다.</p>
-                            <a href="https://github.com/KIMBBOI/displayFlex" class="btn btn-outline-primary" target="_blank">사이트로 이동</a>
+                            <a href="https://github.com/KIMBBOI/displayFlex" class="btn btn-outline-primary" target="_blank">Go To Link</a>
                         </div>
                     </div>
                 </div>
